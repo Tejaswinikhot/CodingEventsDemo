@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Views\Events\" />
     <Folder Include="Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
@@ -18,6 +19,7 @@
     <None Remove="Microsoft.Extensions.DependencyInjection" />
     <None Remove="Microsoft.Extensions.Logging" />
     <None Remove="Data\" />
+    <None Remove="ViewModela\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />

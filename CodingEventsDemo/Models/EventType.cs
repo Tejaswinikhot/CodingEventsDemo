@@ -1,12 +1,11 @@
 ﻿using System;
 namespace CodingEventsDemo.Models
 {
-    public class EventType
+    public enum EventType
     {
-        public int Id { get; set; }
-
-        public EventType()
-        {
-        }
+        Conference,
+        Meetup,
+        Workshop,
+        Social
     }
 }

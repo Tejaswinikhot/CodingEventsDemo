@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodingEventsDemo.Data;
 using CodingEventsDemo.Models;
+using CodingEventsDemo.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,24 +23,41 @@ namespace coding_events_practice.Controllers
              Events.Add("Apple WWDC");
              Events.Add("Strange Loop");*/
 
-            ViewBag.events = EventData.GetAll();
-            return View();
+            //ViewBag.events = EventData.GetAll();
+
+            List<Event> events = new List<Event>(EventData.GetAll());
+            return View(events);
         }
 
         [HttpGet]
         [Route("/Events/Add")]
         public IActionResult Add()
         {
-            return View();
+            AddEventViewModel addEventViewModel = new AddEventViewModel();
+
+            return View(addEventViewModel);
         }
 
         [HttpPost]
-        [Route("/Events/Add")]
-        public IActionResult NewEvent(string name, string desc ="No Description Available", string contactEmail="No Email")
+        //[Route("/Events/Add")]
+        public IActionResult Add(AddEventViewModel addEventViewModel)//Event newEvent)
+            //string name, string desc ="No Description Available", string contactEmail="No Email")
         {
-            EventData.Add( new Event(name, desc, contactEmail));
+            if(ModelState.IsValid)
+            {
+                Event newEvent = new Event
+                {
+                    Name = addEventViewModel.Name,
+                    Description = addEventViewModel.Description,
+                    ContactEmail = addEventViewModel.ContactEmail,
+                    Type = addEventViewModel.Type
+                };
+                EventData.Add(newEvent);
+                //new Event(name, desc, contactEmail));
 
-            return Redirect("/Events");
+                return Redirect("/Events");
+            }
+            return View(addEventViewModel);
         }
 
         [HttpGet]

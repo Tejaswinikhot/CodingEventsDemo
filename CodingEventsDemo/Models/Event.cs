@@ -5,6 +5,7 @@ namespace CodingEventsDemo.Models
 {
     public class Event
     {
+
         public string Name { get; set; }
         public string Description { get; set; }
         public string ContactEmail { get; set; }
@@ -14,14 +15,15 @@ namespace CodingEventsDemo.Models
 
         public Event()
         {
+            Id = nextId;
+            nextId++;
         }
-        public Event(string name, string description, string contactEmail)
+        public Event(string name, string description, string contactEmail): this()
         {
             Name = name;
             Description = description;
             ContactEmail = contactEmail;
-            Id = nextId;
-            nextId++;
+            
         }
 
         public override string ToString()
