@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodingEventsDemo.Data;
 using CodingEventsDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,17 +12,17 @@ namespace coding_events_practice.Controllers
 {
     public class EventsController : Controller
     {
-        static private List<Event> Events = new List<Event>();
+        //static private List<Event> Events = new List<Event>();
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            
-           /* Events.Add("Code With Pride");
-            Events.Add("Apple WWDC");
-            Events.Add("Strange Loop");*/
 
-            ViewBag.events = Events;
+            /* Events.Add("Code With Pride");
+             Events.Add("Apple WWDC");
+             Events.Add("Strange Loop");*/
+
+            ViewBag.events = EventData.GetAll();
             return View();
         }
 
@@ -36,8 +37,26 @@ namespace coding_events_practice.Controllers
         [Route("/Events/Add")]
         public IActionResult NewEvent(string name, string desc ="No Description Available", string contactEmail="No Email")
         {
-            Events.Add( new Event(name, desc, contactEmail));
+            EventData.Add( new Event(name, desc, contactEmail));
 
+            return Redirect("/Events");
+        }
+
+        [HttpGet]
+        public IActionResult Delete ()
+        {
+            ViewBag.events = EventData.GetAll();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int[] eventIds)
+        {
+            foreach(int eventId in eventIds)
+            {
+                EventData.Remove(eventId);
+
+            }
             return Redirect("/Events");
         }
     }
