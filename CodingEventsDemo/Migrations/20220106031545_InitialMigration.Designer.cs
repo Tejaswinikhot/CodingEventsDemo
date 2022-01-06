@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodingEventsDemo.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(EventDbContext))]
     [Migration("20220106031545_InitialMigration")]
     partial class InitialMigration
     {
